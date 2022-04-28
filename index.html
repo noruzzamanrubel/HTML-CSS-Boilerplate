@@ -8,8 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="" />
-    <meta name="keywords"
-        content="Responsive, HTML5 template, restaurants">
+    <meta name="keywords" content="Responsive, HTML5 template, restaurants">
     <meta name="author" content="" />
 
     <!-- SITE TITLE -->
@@ -20,11 +19,38 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
-
+    <script src="assets/js/quagga.min.js"></script>
 </head>
+
 
 <body>
 
+    <div id="barcode"></div>
+    
+    <script>
+        // import Quagga from 'quagga'; // ES6
+        // const Quagga = require('quagga').default;
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector('#barcode')
+            },
+            decoder: {
+                readers: ["code_128_reader"]
+            }
+        }, function (err) {
+            if (err) {
+                console.log(err);
+                return
+            }
+            console.log("Initialization finished. Ready to start");
+            Quagga.start();
+        });
+        Quagga.onDetected(function(data){
+            console.log(data);
+        })
+    </script>
 
     <!--  jquery-3.5.1 -->
     <script src="assets/js/jquery-3.5.1.min.js"></script>
@@ -35,6 +61,7 @@
 
     <!-- Moment JS -->
     <script src="assets/js/moment.min.js"></script>
+
 
     <!-- Custom JS -->
     <script src="assets/js/main.js"></script>
